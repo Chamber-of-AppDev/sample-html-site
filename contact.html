@@ -148,7 +148,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
+                                        <button class="btn btn-primary w-100 py-3" type="submit" id="submit-button">Send Message</button>
                                     </div>
                                 </div>
                             </form>
@@ -159,6 +159,34 @@
         </div>
         <!-- Contact End -->
 
+        <script>
+            const submitButton = document.querySelector('#submit-button');
+
+            submitButton.addEventListener('click', () => {
+            const nameInput = document.querySelector('#name');
+            const emailInput = document.querySelector('#email');
+            const subjectInput = document.querySelector('#subject');
+            const messageInput = document.querySelector('#message');
+
+            fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                name: nameInput.value,
+                email: emailInput.value,
+                subject: subjectInput.value,
+                message: messageInput.value
+                })
+            })
+            .then(response => {
+                if (response.status === 200) {
+                alert('Your message was successfully sent!');
+                }
+            });
+            });
+          </script>
 
         <!-- Footer Start -->
         <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
